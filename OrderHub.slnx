@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="E:/Docs/Github/OrderHub1/OrderHub.Application/OrderHub.Application.csproj" />
+  <Project Path="E:/Docs/Github/OrderHub1/OrderHub.Domain/OrderHub.Domain.csproj" />
+  <Project Path="E:/Docs/Github/OrderHub1/OrderHub.Host/OrderHub.Host.csproj" />
+  <Project Path="OrderHub.Application.Tests/OrderHub.Application.Tests.csproj" />
+  <Project Path="OrderHub.Infrastructure/OrderHub.Infrastructure.csproj" Id="24b989bc-b512-4399-8ed8-f97246a84f6f" />
+</Solution>

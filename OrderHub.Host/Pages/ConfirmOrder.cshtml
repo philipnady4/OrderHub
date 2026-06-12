@@ -1,0 +1,53 @@
+﻿@page "{orderId:int}"
+@model ConfirmOrderModel
+
+<h1>Order for @Model.SchoolName</h1>
+
+<form method="post">
+    <table id="order-lines">
+        <thead>
+            <tr><th>Item</th><th>Qty</th><th>Line total</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Lines)
+            {
+                <tr data-line-id="@line.Id"
+                    data-unit-price="@line.UnitPrice.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)">
+                    <td>@line.Sku — @line.Embroidery</td>
+                    <td>
+                        <input type="number" min="0" step="1"
+                               class="qty-input"
+                               name="Quantities[@line.Id]"
+                               value="@line.Quantity" />
+                    </td>
+                    <td class="line-total">£<span>@line.LineTotal.ToString("F2")</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div style="font-size:18px;color:#333">
+        Subtotal: £<span id="subtotal">@Model.Subtotal.ToString("F2")</span>
+    </div>
+
+    @if (!ModelState.IsValid)
+    {
+        <div asp-validation-summary="All" style="color:#c00"></div>
+    }
+
+    <button type="submit">Confirm</button>
+</form>
+
+@section Scripts {
+    <script src="~/js/confirm-order.js"></script>
+}
+
+@* 
+    3 issues that most matter for the page:
+1- @Html.Raw(Model.SchoolName) — stored XSS.
+    School names are admin-entered data. Html.Raw bypasses Razor's automatic encoding, so any school whose name contains <script> (typo, copy-paste, malicious admin) executes arbitrary JS for every other admin who opens this page
+        
+2- onclick="updateQty(@line.Id)" triggers a full page reload on any click .
+3- Subtotal and line totals are static server-rendered values that never reflect what the admin is currently typing
+
+*@
