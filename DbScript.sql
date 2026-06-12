@@ -81,7 +81,7 @@ WITH yearly AS (
     -- Trade-off: filter on a large date RANGE (last 2 full years),
     -- not a function over OrderDate, so IX_Orders_SchoolId_OrderDate / NCCI
     -- can actually be used for elimination instead of a full scan.
-    WHERE o.OrderDate >= DATEADD(YEAR, -2, DATEFROMPARTS(YEAR(GETDATE()), 1, 1))
+    WHERE o.OrderDate >= DATEADD(YEAR, -1, DATEFROMPARTS(YEAR(GETDATE()), 1, 1))
       AND o.Status = 'COMPLETE'
     GROUP BY s.Id, s.Name, o.Season, p.Category, YEAR(o.OrderDate)
 )
