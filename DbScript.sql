@@ -27,7 +27,7 @@ CREATE TABLE Orders (
     OrderDate DATE              NOT NULL,
     Season    VARCHAR(20)       NOT NULL,  -- e.g. 'Back-to-School', 'Winter'
     Total     DECIMAL(12,2)     NOT NULL,
-    Status    VARCHAR(20)       NOT NULL DEFAULT 'COMPLETE',
+    Status    VARCHAR(20)       NOT NULL DEFAULT 'PENDING',
 
     CONSTRAINT PK_Orders PRIMARY KEY CLUSTERED (Id),
     CONSTRAINT FK_Orders_Schools FOREIGN KEY (SchoolId) REFERENCES Schools (Id)
